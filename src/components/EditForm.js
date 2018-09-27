@@ -6,11 +6,11 @@ const EditForm = (props) => {
   return (
     <form
       className="ui form center aligned sixteen wide column"
-      onSubmit={null}
+      onSubmit={props.handleSubmit}
     >
       <div className="inline fields">
-        <div className="four wide field">
-          <input
+        <div className="eight wide field">
+          <textarea
             id="title"
             type="text"
             name="title"
@@ -19,8 +19,8 @@ const EditForm = (props) => {
             onChange={props.updateNote}
           />
         </div>
-        <div className="four wide field">
-          <input
+        <div className="eight wide field">
+          <textarea
             id="body"
             type="text"
             name="body"

@@ -18,7 +18,7 @@ const NoteList = props => {
             <h3 className="ui center aligned header">Note Body</h3>
           </th>
           <th>
-            <h3 className="ui center aligned header">Edit</h3>
+            <h3 className="ui center aligned header">Update?</h3>
           </th>
         </tr>
 

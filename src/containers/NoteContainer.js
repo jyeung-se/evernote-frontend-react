@@ -43,12 +43,34 @@ class NoteContainer extends Component {
   }
 
 
+  handleSubmit = (event) => {
+    this.setState(prevState => ({
+      notes: prevState.notes.map(
+        note => (note.id === this.state.currentNote.id ? Object.assign(note, this.state.currentNote) : note)
+      )
+    }))
+    event.preventDefault()
+
+    this.handlePatch()
+  }
+
+  handlePatch = () => {
+    fetch(`http://localhost:3000/api/v1/notes/${this.state.currentNote.id}`, {
+      method: "PATCH",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        "title": `${this.state.currentNote.title}`,
+        "body": `${this.state.currentNote.body}`
+      })
+    }).then(res => console.log("updated successfully"))
+  }
+
   render() {
     // console.log(this.state.notes)
     return (
       <div className="ui grid container">
-        <EditForm currentNote={this.state.currentNote} updateNote={this.updateNote} />
-        <p>Evernote whale just passin' on by. Nothing to see here folks.</p>
+        <EditForm currentNote={this.state.currentNote} updateNote={this.updateNote} handleSubmit={this.handleSubmit} />
+        <p><b>Evernote Whale</b> just passin' on by. Nothing to see here folks.</p>
         <NoteList notes={this.state.notes} handleEditNote={this.handleEditNote} />
       </div>
     )
