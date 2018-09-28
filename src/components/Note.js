@@ -9,9 +9,10 @@ const Note = props => {
       <td>{props.note.title}</td>
       <td>{props.note.body}</td>
       <td>
-        <button className="ui button left" onClick={() => props.handleEditNote(props.note)}>
-          Edit
-        </button>
+        <button className="ui button left" onClick={() => props.handleEditNote(props.note)}>Edit</button>
+      </td>
+      <td>
+        <button className="ui button left" onClick={() => props.handleDeleteNote(props.note)}>Delete</button>
       </td>
     </tr>
   )

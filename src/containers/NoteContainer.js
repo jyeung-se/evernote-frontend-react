@@ -53,6 +53,7 @@ class NoteContainer extends Component {
     this.handleCreate()
   }
 
+
   handleCreate = () => {
     fetch(`http://localhost:3000/api/v1/notes/`, {
       method: "POST",
@@ -96,6 +97,7 @@ class NoteContainer extends Component {
     this.handlePatch()
   }
 
+
   handlePatch = () => {
     fetch(`http://localhost:3000/api/v1/notes/${this.state.currentNote.id}`, {
       method: "PATCH",
@@ -107,6 +109,18 @@ class NoteContainer extends Component {
     }).then(res => console.log("updated successfully"))
   }
 
+
+  handleDeleteNote = (note) => {
+    fetch(`http://localhost:3000/api/v1/notes/${note.id}`, {
+      method: "DELETE",
+      headers: {"Content-Type": "application/json"}
+    }).then(res => console.log("updated successfully"))
+    this.setState({
+      notes: this.state.notes.filter(eachNote => eachNote.id !== note.id)
+    })
+  }
+
+
   render() {
     // console.log(this.state.notes)
     return (
@@ -116,7 +130,7 @@ class NoteContainer extends Component {
         <h2>Edit Existing Note</h2>
         <EditForm currentNote={this.state.currentNote} updateExistingNoteInputs={this.updateExistingNoteInputs} handleEditSubmit={this.handleEditSubmit} />
         <p><b>Evernote Whale</b> just passin' on by. Nothing to see here folks.</p>
-        <NoteList notes={this.state.notes} handleEditNote={this.handleEditNote} />
+        <NoteList notes={this.state.notes} handleEditNote={this.handleEditNote} handleDeleteNote={this.handleDeleteNote} />
       </div>
     )
   }
