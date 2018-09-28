@@ -62,7 +62,7 @@ class NoteContainer extends Component {
         "title": `${this.state.newNote.title}`,
         "body": `${this.state.newNote.body}`
       })
-    }).then(res => console.log("Created and posted new note successfully"))
+    }).then(res => console.log("Created a new note."))
   }
 
 
@@ -106,7 +106,7 @@ class NoteContainer extends Component {
         "title": `${this.state.currentNote.title}`,
         "body": `${this.state.currentNote.body}`
       })
-    }).then(res => console.log("updated successfully"))
+    }).then(res => console.log("Updated the note."))
   }
 
 
@@ -114,7 +114,7 @@ class NoteContainer extends Component {
     fetch(`http://localhost:3000/api/v1/notes/${note.id}`, {
       method: "DELETE",
       headers: {"Content-Type": "application/json"}
-    }).then(res => console.log("updated successfully"))
+    }).then(res => console.log("Deleted the note."))
     this.setState({
       notes: this.state.notes.filter(eachNote => eachNote.id !== note.id)
     })
@@ -125,6 +125,7 @@ class NoteContainer extends Component {
     // console.log(this.state.notes)
     return (
       <div className="ui grid container">
+        <br/>
         <h2>Create New Note</h2>
         <CreateForm newNote={this.state.newNote} updateNewNoteInputs={this.updateNewNoteInputs} handleNewNoteSubmit={this.handleNewNoteSubmit} />
         <h2>Edit Existing Note</h2>
