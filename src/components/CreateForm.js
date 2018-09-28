@@ -1,12 +1,12 @@
 import React from 'react'
 
-const EditForm = (props) => {
-  // console.log("EditForm props", props)
+const CreateForm = (props) => {
+  // console.log("CreateForm props", props)
 
   return (
     <form
       className="ui form center aligned sixteen wide column"
-      onSubmit={props.handleEditSubmit}
+      onSubmit={props.handleNewNoteSubmit}
     >
       <div className="inline fields">
         <div className="eight wide field">
@@ -15,8 +15,8 @@ const EditForm = (props) => {
             type="text"
             name="title"
             placeholder="Title"
-            value={props.currentNote.title}
-            onChange={props.updateExistingNoteInputs}
+            value={props.newNote.title}
+            onChange={props.updateNewNoteInputs}
           />
         </div>
         <div className="eight wide field">
@@ -25,8 +25,8 @@ const EditForm = (props) => {
             type="text"
             name="body"
             placeholder="Note"
-            value={props.currentNote.body}
-            onChange={props.updateExistingNoteInputs}
+            value={props.newNote.body}
+            onChange={props.updateNewNoteInputs}
           />
         </div>
         <button className="ui button" type="submit" value="Submit">
@@ -37,4 +37,4 @@ const EditForm = (props) => {
   )
 }
 
-export default EditForm
+export default CreateForm
