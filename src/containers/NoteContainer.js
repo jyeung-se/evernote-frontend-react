@@ -11,7 +11,11 @@ class NoteContainer extends Component {
     this.state={
       notes: [],
       currentNote: {},
-      newNote: {}
+      newNote: {},
+      user: {
+        id: 1,
+        name: "jack"
+      }
     }
   }
 
@@ -54,17 +58,32 @@ class NoteContainer extends Component {
   }
 
 
+  // handleCreate = () => {
+  //   fetch(`http://localhost:3000/api/v1/notes/`, {
+  //     method: "POST",
+  //     headers: {"Content-Type": "application/json"},
+  //     body: JSON.stringify({
+  //       "title": `${this.state.newNote.title}`,
+  //       "body": `${this.state.newNote.body}`,
+  //       "user": {
+  //         "id": `${this.state.user.id}`,
+  //         "name": `${this.state.user.name}`
+  //       }
+  //     })
+  //   }).then(res => console.log("Created a new note."))
+  // }
+
   handleCreate = () => {
     fetch(`http://localhost:3000/api/v1/notes/`, {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
         "title": `${this.state.newNote.title}`,
-        "body": `${this.state.newNote.body}`
+        "body": `${this.state.newNote.body}`,
+        "user_id": `${this.state.user.id}`
       })
     }).then(res => console.log("Created a new note."))
   }
-
 
   updateExistingNoteInputs = (event) => {
     this.setState({

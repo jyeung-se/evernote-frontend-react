@@ -9,6 +9,7 @@ class App extends Component {
     alert("Woahh Woahh Wooahhh!!... Watch it HOOman! No random Clicky Clicky, Okay?")
   }
 
+
   render() {
     return (
 
@@ -20,10 +21,11 @@ class App extends Component {
             <h1>Where HOOmans are transformed into Whhhhhaaaales</h1>
           </header>
         </div>
-          <NoteContainer />
-        </div>
+         <NoteContainer />
+       </div>
     )
   }
+
 }
 
 export default App;
