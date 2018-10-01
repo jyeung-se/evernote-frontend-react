@@ -4,7 +4,7 @@ import Note from './Note'
 
 const NoteList = props => {
   // console.log("NoteList props", props)
-  const mappedNotes = props.notes.map(note => <Note note={note} key={note.title} handleEditNote={props.handleEditNote} handleDeleteNote={props.handleDeleteNote} />)
+  const mappedNotes = props.notes.map((note, index) => <Note note={note} key={index} handleEditNote={props.handleEditNote} handleDeleteNote={props.handleDeleteNote} />)
 
   return (
     <table className="ui celled striped padded table">
