@@ -9,6 +9,7 @@ const Note = props => {
       <td>{props.note.title}</td>
       <td>{props.note.body}</td>
       <td>
+        {/* <a href="/editnote"><button className="ui button left" onClick={() => props.handleEditNote(props.note)}>Edit</button></a> */}
         <button className="ui button left" onClick={() => props.handleEditNote(props.note)}>Edit</button>
       </td>
       <td>

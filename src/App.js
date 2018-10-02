@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import './App.css';
 import NoteContainer from './containers/NoteContainer.js'
 
-
 class App extends Component {
 
   handleClick = () => {
-    alert("Woahh Woahh Wooahhh!!... Watch it HOOman! No random Clicky Clicky, Okay?")
+    alert("Woahh Woahh Wooahhh!!... Why so curious, hmm?")
   }
 
 
@@ -18,10 +17,10 @@ class App extends Component {
           <header className="App-header" onClick={this.handleClick}>
             <font size="7">Welcome To Beep-Bop Boop-Bop</font>
           <br/>
-            <h1>Where HOOmans are transformed into Whhhhhaaaales</h1>
+            <h1>Express Thyself</h1>
           </header>
         </div>
-         <NoteContainer />
+          <NoteContainer />
        </div>
     )
   }

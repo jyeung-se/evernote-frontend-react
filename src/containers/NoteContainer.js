@@ -11,7 +11,7 @@ class NoteContainer extends Component {
 
     this.state={
       notes: [],
-      currentNote: {},
+      currentNote: null,
       user: {
         id: 1,
         name: "jack"
@@ -27,32 +27,11 @@ class NoteContainer extends Component {
     }))
   }
 
-  //
-  // createNewNote = (note) => {
-  //   this.setState({
-  //     newNote: note
-  //   })
-  // }
-
-  //
-  // updateNewNoteInputs = (event) => {
-  //   this.setState({
-  //     ...this.state,
-  //     newNote:
-  //     {
-  //       ...this.state.newNote,   // prevents overwriting other keys (if any) in the newNote state not listed below
-  //       [event.target.name]: event.target.value,   // this way requires you add 'name' to the input fields in your Form
-  //       [event.target.name]: event.target.value
-  //     }
-  //   })
-  // }
-  //
 
   handleNewNoteSubmit = (note) => {
     this.setState({
       notes: [...this.state.notes, note]
     })
-    // event.target.reset()
     this.handleCreate(note)
   }
 
@@ -70,47 +49,35 @@ class NoteContainer extends Component {
   }
 
 
-  // updateExistingNoteInputs = (event) => {
-  //   this.setState({
-  //     ...this.state,
-  //     currentNote:
-  //     {
-  //       ...this.state.currentNote,   // prevents overwriting other keys (if any) in the CurrentNote state not listed below
-  //       [event.target.name]: event.target.value,   // this way requires you add 'name' to the input fields in your Form
-  //       [event.target.name]: event.target.value
-  //     }
-  //   })
-  // }
-
-
   handleEditNote = (note) => {
     this.setState({
       currentNote: note
+    // }, () => console.log("currentNote is", this.state.currentNote))
     })
   }
 
 
-  // handleEditSubmit = (event) => {
-  //   this.setState(prevState => ({
-  //     notes: prevState.notes.map(
-  //       note => (note.id === this.state.currentNote.id ? Object.assign(note, this.state.currentNote) : note)
-  //     )
-  //   }))
-  //   event.preventDefault()
-  //   this.handlePatch()
-  // }
-  //
-  //
-  // handlePatch = () => {
-  //   fetch(`http://localhost:3000/api/v1/notes/${this.state.currentNote.id}`, {
-  //     method: "PATCH",
-  //     headers: {"Content-Type": "application/json"},
-  //     body: JSON.stringify({
-  //       "title": `${this.state.currentNote.title}`,
-  //       "body": `${this.state.currentNote.body}`
-  //     })
-  //   }).then(res => console.log("Updated the note."))
-  // }
+  handleEditSubmit = (note) => {
+    this.setState(prevState => ({
+      notes: prevState.notes.map(
+        singleNote => (singleNote.id === note.id ? Object.assign(singleNote, note) : singleNote)
+      ),
+      currentNote: null
+    }))
+    this.handlePatch(note)
+  }
+
+
+  handlePatch = (note) => {
+    fetch(`http://localhost:3000/api/v1/notes/${note.id}`, {
+      method: "PATCH",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        "title": `${note.title}`,
+        "body": `${note.body}`
+      })
+    }).then(res => console.log("Updated the note."))
+  }
 
 
   handleDeleteNote = (note) => {
@@ -125,10 +92,16 @@ class NoteContainer extends Component {
 
 
   render() {
+    // console.log("currentNote is", this.state.currentNote)
+    // console.log('note container', this.props)
     // console.log("notes is", this.state.notes)
+
     const noteList =
     <div>
+      {this.state.currentNote === null ? null : <EditForm notes={this.state.notes} currentNote={this.state.currentNote} updateExistingNoteInputs={this.updateExistingNoteInputs} handleEditSubmit={this.handleEditSubmit} />}
       <h2>Evernote Whale just passin' on by. Nothing to see here folks.</h2>
+      <br/>
+      <a href="/newnote"><button className="ui button left">Create a new note</button></a>
       <NoteList notes={this.state.notes} handleEditNote={this.handleEditNote} handleDeleteNote={this.handleDeleteNote} />
     </div>
 
@@ -138,19 +111,20 @@ class NoteContainer extends Component {
     //   <CreateForm notes={this.state.notes} newNote={this.state.newNote} updateNewNoteInputs={this.updateNewNoteInputs} handleNewNoteSubmit={this.handleNewNoteSubmit} />
     // </div>
 
-    const editForm =
-    <div>
-      <h2>Edit note</h2>
-      <EditForm notes={this.state.notes} currentNote={this.state.currentNote} updateExistingNoteInputs={this.updateExistingNoteInputs} handleEditSubmit={this.handleEditSubmit} />
-      <NoteList notes={this.state.notes} handleEditNote={this.handleEditNote} handleDeleteNote={this.handleDeleteNote} />
-    </div>
+    // const editForm =
+    // <div>
+    //   <h2>Edit note</h2>
+    //   <EditForm notes={this.state.notes} currentNote={this.state.currentNote} updateExistingNoteInputs={this.updateExistingNoteInputs} handleEditSubmit={this.handleEditSubmit} />
+    //   <NoteList notes={this.state.notes} handleEditNote={this.handleEditNote} handleDeleteNote={this.handleDeleteNote} />
+    // </div>
 
 
     return (
       <Router>
         <div>
-          <Route exact path="/newnote" render={(renderprops) => <CreateForm notes={this.state.notes} newNote={this.state.newNote} updateNewNoteInputs={this.updateNewNoteInputs} handleNewNoteSubmit={this.handleNewNoteSubmit} {...renderprops} />} />
-          <Route exact path="/editnote" component={() => editForm} />
+          <Route exact path="/newnote" render={(renderprops) => <CreateForm handleNewNoteSubmit={this.handleNewNoteSubmit} {...renderprops} />} />
+          {/* <Route exact path="/editnote" render={(renderprops) => <EditForm handleEditSubmit={this.handleEditSubmit} currentNote={this.state.currentNote} {...renderprops} />} /> */}
+          {/* <Route exact path="/editnote" component={() => editForm} /> */}
           <br/>
           <br/>
           <Route exact path="/" component={() => noteList} />
@@ -160,6 +134,7 @@ class NoteContainer extends Component {
   }
 
 
+  // NOTE: THIS BELOW COMMENTED CODE WAS FOR WHEN THE APPLICATION WAS A SINGLE PAGE APPLICATION
   // render() {
   //   // console.log(this.state.notes)
   //   return (

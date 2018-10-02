@@ -27,39 +27,16 @@ class CreateForm extends Component {
     })
   }
 
-    handleSubmit = (event) => {
-      event.preventDefault()
-      this.props.handleNewNoteSubmit(this.state.newNote)
-      this.props.history.push("/")
-    }
 
+  handleSubmit = (event) => {
+    event.preventDefault()
+    this.props.handleNewNoteSubmit(this.state.newNote)
+    this.props.history.push("/")
+  }
 
-  // handleNewNoteSubmit = (event) => {
-  //   this.setState({
-  //     notes: [...this.props.notes, this.state.newNote]
-  //   })
-  //   event.preventDefault()
-  //   // event.target.reset()
-  //   this.handleCreate()
-  //   this.props.createNewNote(this.props.newNote)
-  //   this.props.history.push("/")
-  // }
-  //
-  //
-  // handleCreate = () => {
-  //   fetch(`http://localhost:3000/api/v1/notes/`, {
-  //     method: "POST",
-  //     headers: {"Content-Type": "application/json"},
-  //     body: JSON.stringify({
-  //       "title": `${this.state.newNote.title}`,
-  //       "body": `${this.state.newNote.body}`,
-  //       "user_id": `${this.state.user.id}`
-  //     })
-  //   }).then(res => console.log("Created a new note."))
-  // }
 
   render () {
-    console.log("renderprops", this.props)
+    // console.log("renderprops", this.props)
     return (
       <form
         className="ui form center aligned sixteen wide column"
